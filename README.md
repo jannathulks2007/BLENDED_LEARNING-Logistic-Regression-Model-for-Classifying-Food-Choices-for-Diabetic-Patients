@@ -9,22 +9,79 @@ To implement a logistic regression model to classify food items for diabetic pat
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. 
-2. 
-3. 
-4. 
+1. Load the dataset.
+
+2. Separate input features (X) and target variable (Y).
+
+3. Split the dataset into training and testing data.
+
+4. Train the Logistic Regression model using training data.
+
+5. Predict the output using test data.
+
+6. Calculate accuracy and other performance measures.
 
 ## Program:
 ```
-/*
-Program to implement Logistic Regression for classifying food choices based on nutritional information.
-Developed by: 
-RegisterNumber:  
-*/
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import LabelEncoder,MinMaxScaler
+from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score,confusion_matrix,classification_report
+
+df = pd.read_csv('food_items (1).csv')
+
+print('Name: ')
+print('Reg. No: ')
+print("Dataset Overview:")
+print(df.head())
+print("\nDataset Info:")
+print(df.info())
+
+X_raw = df.iloc[:, :-1]
+y_raw = df.iloc[:, -1:]
+scaler= MinMaxScaler()
+
+X=scaler.fit_transform(X_raw)
+label_encoder=LabelEncoder()
+y=label_encoder.fit_transform(y_raw.values.ravel())
+X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.2, stratify=y, random_state = 123)
+
+penalty='l2'
+multi_class='multinomial'
+solver='lbfgs'
+max_iter=1000
+
+l2_model=LogisticRegression(random_state=123, penalty=penalty, multi_class=multi_class, solver=solver, max_iter=max_iter)
+
+l2_model.fit(X_train, y_train)
+y_pred = l2_model.predict(X_test)
+
+print('Name: A.Jannathul Shaban')
+print('Reg. No: 212225220043')
+print("\nModel Evaluation:")
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report (y_test, y_pred))
+
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+print(conf_matrix)
+print('Name: A.Jannathul Shaban ')
+print('Reg. No: 212225220043')
+
 ```
 
 ## Output:
-![simple linear regression model for predicting the marks scored](sam.png)
+<img width="623" height="377" alt="Screenshot 2026-02-25 232128" src="https://github.com/user-attachments/assets/2c6873da-0071-4635-b003-ec340058d47b" />
+
+<img width="285" height="129" alt="Screenshot 2026-02-25 232158" src="https://github.com/user-attachments/assets/3da0e561-ebd3-413a-a5ce-7e6668264abb" />
+
+
+
 
 
 ## Result:
